@@ -1,24 +1,54 @@
-# README
+# Strebook2
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+### サイトテーマ
+お客様の要望やアイデアを書店に届けるレビューサイト
 
-Things you may want to cover:
+### 作成目的
+1. ポートフォリオの修正・要素追加
+2. ポートフォリオをもう一度作成することで機能作成やエラー解決の上達に繋げる
+3. デザインやレイアウトなど凝りたい箇所にこだわりを追加
 
-* Ruby version
+## 設計書
+[書店_ワイヤーフレーム]()<br>
+[お客様_ワイヤーフレーム]()<br>
+[管理者_ワイヤーフレーム]()<br>
+[ER図]()<br>
+[テーブル定義書]()<br>
+[アプリケーション詳細設計書]()
 
-* System dependencies
+## 実装機能
+1. 会員機能<br>
+お客様(customer)<br>
+書店(book_store)はタグ機能も実装
+2. ゲストログイン<br>
+お客様(guestcustomer), 書店(guestbook_store)
+3. 投稿機能<br>
+書店(book_store)
+4. 投稿検索機能(キーワード検索)<br>
+お客様(customer), 管理者(admin)
+5. コメント機能(星でレビュー機能も実装)<br>
+お客様(customer)
+6. タグ検索機能<br>
+お客様(customer), 管理者(admin)
+7. ユーザ管理機能<br>
+管理者(admin)
+8. ユーザ検索機能<br>
+管理者(admin)
 
-* Configuration
+## 修正・追加箇所
+あれば記載
+#### 機能
+1. 
 
-* Database creation
+#### その他変更箇所
 
-* Database initialization
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 使用素材
+使用している画像はChatGPTで作成したものです。
