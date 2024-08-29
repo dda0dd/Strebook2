@@ -6,7 +6,13 @@ class DeviseCreateBookStores < ActiveRecord::Migration[6.1]
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
-
+      
+      t.string :name, null: false, default: ""
+      t.string :address, null: false, default: ""
+      t.string :telephone_number, null: false, default: ""
+      t.integer :age, null: false
+      t.boolean :is_active, null: false, default: "TRUE"
+      
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
@@ -35,7 +41,8 @@ class DeviseCreateBookStores < ActiveRecord::Migration[6.1]
 
       t.timestamps null: false
     end
-
+    
+    add_index :book_stores, :name,                 unique: true
     add_index :book_stores, :email,                unique: true
     add_index :book_stores, :reset_password_token, unique: true
     # add_index :book_stores, :confirmation_token,   unique: true
