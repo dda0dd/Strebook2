@@ -1,0 +1,2 @@
+module BookStore::PostsHelper
+end

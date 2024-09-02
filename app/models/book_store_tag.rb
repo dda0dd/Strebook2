@@ -1,0 +1,2 @@
+class BookStoreTag < ApplicationRecord
+end
