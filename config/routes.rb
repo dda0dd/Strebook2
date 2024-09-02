@@ -1,65 +1,95 @@
 Rails.application.routes.draw do
+  root :to =>"homes#top"
+  get '/about' => 'homes#about'
   
-  devise_for :admin, controllers: {
-  sessions: "admin/sessions"
-}
+  devise_for :admin, skip: [:registrations, :passwords], controllers: {
+    sessions: "admin/sessions"
+  }
   namespace :admin do
-    get 'request_comments/index'
-  end
-  namespace :admin do
-    get 'posts/index'
-  end
-  namespace :admin do
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/unsubscribe'
-  end
-  namespace :admin do
-    get 'comments/index'
-  end
-  namespace :admin do
-    get 'book_stores/index'
-    get 'book_stores/show'
-    get 'book_stores/unsubscribe'
-  end
-  
-  devise_for :book_stores, controllers: {
-  registrations: "book_store/registrations",
-  sessions: 'book_store/sessions'
-}
-  namespace :book_store do
-    get 'request_comments/index'
-  end
-  namespace :book_store do
-    get 'posts/index'
-    get 'posts/new'
-  end
-  namespace :book_store do
-    get 'comments/index'
-  end
-  namespace :book_store do
-    get 'book_stores/edit'
-    get 'book_stores/show'
-    get 'book_stores/unsubscribe'
+    resources :customers, only: [:index, :show, :destroy] do
+      member do
+        get 'unsubscribe'
+        patch 'withdraw'
+      end
+      collection do
+        get 'search'
+      end
+    end
+    resources :comments, only: [:index, :show, :destroy] do
+      collection do
+        get 'search'
+	    end
+	  end
+	  resources :book_stores, only: [:index, :show, :destroy] do
+	    member do
+  	    get 'unsubscribe'
+        patch 'withdraw'
+      end
+	    collection do
+	      get 'search'
+	    end
+	  end
+	  resources :posts, only: [:index, :destroy] do
+	    collection do
+	      get 'search'
+	    end
+	  end
+	  resources :request_comments, only: [:index, :destroy] do
+	    collection do
+	      get 'search'
+	    end
+	  end
   end
   
-  devise_for :customers, controllers: {
-  registrations: "public/registrations",
-  sessions: 'public/sessions'
-}
-  get 'homes/about'
-  get 'homes/top'
-  namespace :public do
-    get 'request_comments/new'
+  devise_for :book_stores, skip: [:passwords], controllers: {
+    registrations: "book_store/registrations",
+    sessions: 'book_store/sessions'
+  }
+  devise_scope :book_store do
+    get "book_stores/guest_sign_in", to: "book_store/sessions#guest_sign_in"
+  end
+  namespace :book_store do
+    resources :book_stores, only: [:show, :edit, :update] do
+      resources :posts do
+        resources :comments, only: [:index]
+      end
+      resources :tags, only: [:index, :create, :destroy]
+      collection do
+        get 'unsubscribe'
+        patch 'withdraw'
+      end
+    end
+    resources :posts
+    resources :request_comments, only: [:index] do
+      collection do
+        get 'search'
+      end
+    end
+  end
+  
+  devise_for :customers, skip: [:passwords], controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+  }
+  
+  devise_scope :customer do
+    get "customers/guest_sign_in", to: "public/sessions#guest_sign_in"
   end
   namespace :public do
-    get 'posts/index'
-    get 'posts/show'
-  end
-  namespace :public do
-    get 'customers/edit'
-    get 'customers/show'
-    get 'customers/unsubscribe'
+    resources :customers, only: [:show, :edit, :update] do
+      collection do
+        get 'unsubscribe'
+        patch 'withdraw'
+      end
+    end
+    resources :book_stores
+    resources :posts, only: [:index, :show] do
+      resources :thoughtse_comments, only: [:index, :create, :destroy]
+      collection do
+        get 'search'
+      end
+    end
+    resources :request_comments, only: [:new, :index, :create, :destroy]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
