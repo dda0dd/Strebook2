@@ -75,4 +75,5 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
   # 複数のホストからRailsアプリケーションにアクセスできるように設定追記
   config.hosts.clear
+  config.active_job.queue_adapter = :inline
 end

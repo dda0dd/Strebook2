@@ -1,2 +1,7 @@
-<h1>Admin::BookStores#show</h1>
-<p>Find me in app/views/admin/book_stores/show.html.erb</p>
+<div style="flex: 1; text-align: center;">
+  <% if @book_store.image.attached? %>
+    <%= image_tag @book_store.image, size: "200x200", style: "width: 350px ;height: 350px;" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "200x200", style: "width: 350px ;height: 350px;"  %>
+  <% end %>
+</div>
