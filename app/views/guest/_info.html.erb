@@ -1,0 +1,5 @@
+<% unless customer.guest_customer? %>
+  <div class="row">
+    <%= link_to "",edit_customer_path(customer),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_customer_#{customer.id}" %>
+  </div>
+<% end %>
