@@ -23,6 +23,7 @@
         <div class="actions">
           <%= f.submit "ログイン", class:"btn btn-outline-info btn-sm mr-2" %>
           <%= render "book_store/shared/links" %>
+          <%= link_to "ゲストログイン", book_stores_guest_sign_in_path, class: "btn btn-outline-secondary btn-sm" %>
         </div>
       <% end %>
     </div>

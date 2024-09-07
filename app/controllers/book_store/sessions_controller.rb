@@ -25,6 +25,12 @@ class BookStore::SessionsController < Devise::SessionsController
 	  root_path
   end
 
+  def guest_sign_in
+    book_store = BookStore.guest
+    sign_in book_store
+    redirect_to book_store_book_store_path(book_store.id), notice: "guestbook_storeでログインしました。"
+  end
+
   protected
 
   def configure_sign_in_params
