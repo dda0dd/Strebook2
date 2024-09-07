@@ -25,12 +25,6 @@ class Public::SessionsController < Devise::SessionsController
 	  root_path
   end
 
-  def guest_sign_in
-    customer = Customer.guest
-    sign_in customer
-    redirect_to public_customer_path(customer.id), notice: "guestcustomerでログインしました。"
-  end
-
   protected
 
   def configure_sign_in_params
