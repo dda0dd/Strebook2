@@ -1,2 +1,7 @@
-<h1>BookStore::BookStores#unsubscribe</h1>
-<p>Find me in app/views/book_store/book_stores/unsubscribe.html.erb</p>
+<div class="container">
+<h2 class="mx-1 my-5 text-secondary text-center"><span class="border-bottom">本当に退会されますか？</span></h2>
+  <div class="row justify-content-center">
+    <%= link_to "退会しない", book_store_book_store_path(current_book_store.id), class:"btn btn-outline-secondary ml-2 btn-sm" %>
+    <%= link_to "退会する", withdraw_book_store_book_stores_path, method: :patch, data: { confirm: "退会ボタンです。このまま実行されますか？" }, class:"btn btn-outline-danger ml-1 btn-sm" %>
+  </div>
+</div>

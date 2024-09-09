@@ -1,2 +1,37 @@
-<h1>Public::Customers#edit</h1>
-<p>Find me in app/views/public/customers/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2 class="mx-1 my-5 text-secondary border-bottom col-4"><b>マイページ編集</b></h2>
+      <%= form_with model: @customer, url: public_customer_path(@customer), local: true do |f| %>
+       <%= render 'layouts/error_messages', model: f.object %>
+        <table class="table table-borderless text-secondary">
+          <tr>
+            <th><%= f.label :name, "ニックネーム", class:"border-bottom" %></th>
+            <td><%= f.text_field :name, class:"border border-secondary text-secondary rounded" %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :email, "メールアドレス", class:"border-bottom" %></th>
+            <td><%= f.text_field :email, class:"border border-secondary text-secondary rounded" %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :age, "年齢", class:"border-bottom" %></th>
+            <td><%= f.text_field :age, class:"border border-secondary text-secondary rounded" %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :occupation, "職業", class:"border-bottom" %></th>
+            <td><%= f.text_field :occupation, class:"border border-secondary text-secondary rounded" %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :address, "住所", class:"border-bottom" %></th>
+            <td><%= f.text_field :address, class:"border border-secondary text-secondary rounded" %></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><%= f.submit "編集内容を保存", class:"btn btn-outline-info btn-sm" %></td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>

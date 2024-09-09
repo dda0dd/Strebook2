@@ -1,2 +1,43 @@
-<h1>Admin::Customers#show</h1>
-<p>Find me in app/views/admin/customers/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2 class="mx-1 my-5 text-secondary border-bottom col-4"><b>お客様マイページ</b></h2>
+      <table class="mx-1 my-2 table table-hover align-middle text-secondary">
+        <tr>
+          <th>お客様ID</th>
+          <td><%= @customer.id %></td>
+        </tr>
+        <tr>
+          <th>ニックネーム</th>
+          <td><%= @customer.name %></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td><%= @customer.email %></td>
+        </tr>
+        <tr>
+          <th>年齢</th>
+          <td><%= @customer.age %></td>
+        </tr>
+        <tr>
+          <th>職業</th>
+          <td><%= @customer.occupation %></td>
+        </tr>
+        <tr>
+          <th>住所</th>
+          <td><%= @customer.address %></td>
+        </tr>
+        <tr>
+          <th>会員ステータス</th>
+          <td><%= @customer.is_active ? '有効' : '無効' %></td>
+        </tr>
+        <% if admin_signed_in? && !@customer.guest? %>
+          <tr>
+            <td></td>
+            <td><%= link_to "退会", unsubscribe_admin_customer_path(@customer), class:"btn btn-outline-danger btn-sm" %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
