@@ -1,2 +1,7 @@
-<h1>Public::Customers#unsubscribe</h1>
-<p>Find me in app/views/public/customers/unsubscribe.html.erb</p>
+<div class="container">
+<h2 class="mx-1 my-5 text-secondary text-center"><span class="border-bottom">本当に退会されますか？</span></h2>
+  <div class="row justify-content-center">
+    <%= link_to "退会しない", public_customer_path(current_customer.id), class:"btn btn-outline-secondary btn-sm" %>
+    <%= link_to "退会する", withdraw_public_customers_path, method: :patch, data: { confirm: "退会ボタンです。このまま実行されますか？" }, class:"ml-2 mr-7 btn btn-outline-danger btn-sm" %>
+	</div>
+</div>

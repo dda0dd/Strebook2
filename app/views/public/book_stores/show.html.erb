@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2 class="mx-1 my-5 text-secondary border-bottom col-4"><b>書店詳細ページ</b></h2>
+      <div style="display: flex;">
+      <table class="mx-1 my-2 table table-hover align-middle text-secondary" style="flex: 1">
+        <tr>
+          <th class="bg-light">書店名</th>
+          <td><%= @book_store.name %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">メールアドレス</th>
+          <td><%= @book_store.email %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">創立年齢</th>
+          <td><%= @book_store.age %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">電話番号</th>
+          <td><%= @book_store.telephone_number %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">住所</th>
+          <td><%= @book_store.address %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">タグ</th>
+          <td>
+            <% @book_store.tags.each do |tag| %>
+              <span class=" rounded", style= "background: gray; padding: 3px; color: white;"><%= tag.name %></span>
+            <% end %>
+          </td>
+        </tr>
+        <% if book_store_signed_in? && !current_book_store.guest? %>
+          <tr>
+            <td><%= link_to "編集", edit_book_store_book_store_path(current_book_store.id), class:"btn btn-outline-primary btn-sm" %></td>
+            <td><%= link_to "退会する", unsubscribe_book_store_book_stores_path, data: { confirm: "退会してもよろしいですか？" }, class:"btn btn-outline-danger ml-1" %></td>
+          </tr>
+        <% end %>
+      </table>
+        <div style="flex: 1; text-align: center;">
+          <% if @book_store.image.attached? %>
+            <%= image_tag @book_store.image, size: "200x200", style: "width: 350px ;height: 350px;" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "200x200", style: "width: 350px ;height: 350px;"  %>
+          <% end %>
+        </div>
+      </div>
+      <table class="mx-1 my-5 table table-hover align-middle text-secondary">
+        <thead>
+          <tr>
+            <th>書店名</th>
+            <th>投稿内容</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @book_store.posts.each do |post|%>
+            <tr>
+              <td>
+                <%= post.title %>
+              </td>
+              <td>
+                <%= post.content %>
+              </td>
+              <td>
+                <%= link_to "感想コメント", public_post_path(post.id), class:"btn btn-outline-success btn-sm" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="mx-1">
+        <%= paginate @book_store_posts %>
+      </div>
+    </div>
+  </div>
+</div>
