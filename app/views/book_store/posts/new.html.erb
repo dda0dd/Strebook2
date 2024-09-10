@@ -1,2 +1,19 @@
-<h1>BookStore::Posts#new</h1>
-<p>Find me in app/views/book_store/posts/new.html.erb</p>
+<div class='container'>
+  <div class='row'>
+    <div class='col'>
+      <h2 class="mx-1 my-5 text-secondary border-bottom col-4"><b>新規投稿</b></h2>
+      <%= form_with model: @post, url: book_store_posts_path, local:true do |f| %>
+        <%= render 'layouts/error_messages', model: f.object %>
+        <%= f.label :書店名,class:"mx-1 border-bottom text-secondary" %>
+        <div class="form-group mx-1 my-2 text-secondary">
+          <%= f.text_field :title, class: 'border border-3 text-secondary rounded' %>
+        </div>
+        <%= f.label :投稿内容,class:"mx-1 mt-2 border-bottom text-secondary" %>
+        <div class="form-group mx-1 my-2 text-secondary">
+          <%= f.text_area :content, rows: '8', style: "width:80%", placeholder: "リクエストを実施した場合はその旨も投稿しましょう", class: 'border border-3 text-secondary rounded' %>
+          <%= f.submit '新規投稿', class:"mx-2 mb-4 btn btn-outline-success btn-sm" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
