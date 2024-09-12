@@ -1,2 +1,29 @@
-<h1>BookStore::Posts#index</h1>
-<p>Find me in app/views/book_store/posts/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="col-md-8 offset-md-1">
+        <h2>書店投稿一覧</h2>
+        <table class="table table-hover table-inverse">
+          <tbody>
+            <% @posts.each do |post| %>
+              <tr>
+                <td>
+                  <%= link_to public_book_store_path(post.book_store) do %>
+                    <%= post.title %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= post.content %>
+                </td>
+              </tr>
+              <% if @post.user == current_user %>
+                <td><%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-success" %></td>
+                <td><%= link_to '削除', @post, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

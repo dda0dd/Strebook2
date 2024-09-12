@@ -1,2 +1,57 @@
-<h1>Public::Customers#show</h1>
-<p>Find me in app/views/public/customers/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2 class="mx-1 my-5 text-secondary border-bottom col-4"><b>お客様マイページ</b></h2>
+        <table class="mx-1 my-2 table table-hover text-secondary">
+          <tr>
+            <th class="bg-light">ニックネーム</th>
+            <td><%= @customer.name %></td>
+          </tr>
+          <tr>
+            <th class="bg-light">メールアドレス</th>
+            <td><%= @customer.email %></td>
+          </tr>
+          <tr>
+            <th class="bg-light">年齢</th>
+            <td><%= @customer.age %></td>
+          </tr>
+          <tr>
+            <th class="bg-light">職業</th>
+            <td><%= @customer.occupation %></td>
+          </tr>
+          <tr>
+            <th class="bg-light">住所</th>
+            <td><%= @customer.address %></td>
+          </tr>
+          <% if customer_signed_in? && !current_customer.guest? %>
+            <tr>
+              <td><%= link_to "編集", edit_public_customer_path(current_customer.id), class:"btn btn-outline-secondary btn-sm" %></td>
+              <td><%= link_to "退会する", unsubscribe_public_customers_path, data: { confirm: "退会してもよろしいですか？" }, class:"btn btn-outline-danger ml-0 btn-sm" %></td>
+            </tr>
+          <% end %>
+        </table>
+        <% if customer_signed_in? && !current_customer.guest? %>
+          <h4 class="mx-1 my-5 text-secondary border-bottom col-4"><b>リクエスト一覧</b></h4>
+          <table class="mx-1 my-3 table table-hover align-middle text-secondary">
+            <thead>
+              <tr>
+                <th>リクエスト内容</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @request_comments.each do |request_comment|%>
+                <tr>
+                  <td><%= request_comment.content %></td>
+                  <td><%= link_to "削除", public_request_comment_path(request_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-outline-danger" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      <div class="mx-1">
+        <%= paginate @request_comments %>
+      </div>
+    </div>
+  </div>
+</div>
