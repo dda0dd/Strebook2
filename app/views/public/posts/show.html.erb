@@ -1,2 +1,79 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <% if customer_signed_in? && !current_customer.guest? %>
+      <div class="col-md-4">
+        <h2 class="mx-1 my-5 text-secondary border-bottom col-12"><b>感想コメント作成</b></h2>
+        <%= form_with model: @thoughtse_comment, url: public_post_thoughtse_comments_path(@post) do |f| %>
+          <%= render 'layouts/error_messages', model: f.object %>
+          <%= f.hidden_field :post_id, value: @post.id %>
+          <div class="mx-1 my-2 text-secondary">
+            <%= f.label :content, "感想", class:"border-bottom" %>
+            <%= f.text_area :content, rows: '8', class: "form-control" %>
+          </div>
+          <div class="mx-1 my-2 text-secondary" id="star">
+            <%= f.label :"評価", class:"border-bottom" %>
+            <%= f.hidden_field :evaluation_score, id: :review_star, class: 'form-control' %>
+            <div id="post_raty"></div>
+          </div>
+          <%= f.submit "感想コメント", class:"mx-1 my-2 btn btn-outline-success btn-sm" %>
+          <script>
+            $(document).on('turbolinks:load', function() {
+              let elem = document.querySelector('#post_raty');
+              if (elem == null) return;
+              elem.innerHTML = ""
+              let opt = {
+                starOn: "<%= asset_path('star-on.png') %>",
+                starOff: "<%= asset_path('star-off.png') %>",
+                starHalf: "<%= asset_path('star-half.png') %>",
+                scoreName: 'thoughtse_comment[evaluation_score]',
+              };
+              raty(elem, opt);
+            });
+          </script>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="col-md-8">
+      <h2 class="mx-1 mt-5 text-secondary border-bottom col-7"><b>感想コメント一覧</b></h2>
+      <table class="mx-1 thoughtse_comment_top table table-hover align-middle text-secondary">
+        <thead>
+          <tr>
+            <th>感想</th>
+            <th>書店評価</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @thoughtse_comments.each do |thoughtse_comment|%>
+            <tr>
+              <td><%= thoughtse_comment.content %></td>
+              <td id="show_raty<%= thoughtse_comment.id %>"></td>
+              <script>
+                $(document).on('turbolinks:load', function() {
+                  let elem = document.querySelector('#show_raty<%= thoughtse_comment.id %>');
+                  if (elem == null) return;
+
+                  elem.innerHTML = ""
+                  let opt = {
+                    starOn: "<%= asset_path('star-on.png') %>",
+                    starOff: "<%= asset_path('star-off.png') %>",
+                    starHalf: "<%= asset_path('star-half.png') %>",
+                    readOnly: true,
+                    score: <%= thoughtse_comment.evaluation_score %>
+                  };
+                  raty(elem, opt);
+                });
+              </script>
+              <% if customer_signed_in? && !current_customer.guest? %>
+                <td><%= link_to "削除", public_post_thoughtse_comment_path(@post,thoughtse_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-outline-danger float-end" %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="mx-1">
+        <%= paginate @thoughtse_comments %>
+      </div>
+    </div>
+  </div>
+</div>
