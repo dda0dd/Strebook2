@@ -1,2 +1,39 @@
-<h1>BookStore::Comments#index</h1>
-<p>Find me in app/views/book_store/comments/index.html.erb</p>
+<div class="container">
+  <h2 class="mx-1 my-5 text-secondary border-bottom col-7"><b>感想コメント一覧</b></h2>
+  <table class="mx-1 my-2 thoughtse_comment_top table table-hover align-middle text-secondary">
+    <thead>
+      <tr>
+        <th>感想</th>
+        <th>書店評価</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @thoughtse_comments.each do |thoughtse_comment| %>
+        <tr>
+          <td>
+            <%= thoughtse_comment.content %>
+          </td>
+          <td id="index_raty<%= thoughtse_comment.id %>"></td>
+        </tr>
+        <script>
+        $(document).on('turbolinks:load', function() {
+          let elem = document.querySelector('#index_raty<%= thoughtse_comment.id %>');
+          if (elem == null) return;
+          elem.innerHTML = "";
+          let opt = {
+            starOn: "<%= asset_path('star-on.png') %>",
+            starOff: "<%= asset_path('star-off.png') %>",
+            starHalf: "<%= asset_path('star-half.png') %>",
+            score: "<%= thoughtse_comment.evaluation_score %>",
+            readOnly: true,
+          };
+          raty(elem, opt);
+        });
+        </script>
+        <% end %>
+      </tbody>
+  </table>
+  <div class="mx-1">
+    <%= paginate @thoughtse_comments %>
+  </div>
+</div>
