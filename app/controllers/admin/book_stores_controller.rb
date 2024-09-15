@@ -25,22 +25,22 @@ class Admin::BookStoresController < ApplicationController
     redirect_to admin_book_stores_path
   end
 
-  # def search
-  #   @word = params[:is_active]
-  #   if @word.present?
-  #     @book_stores = BookStore.where(is_active: @word).page(params[:page]).per(5)
-  #   else
-  #     @book_stores = BookStore.all.page(params[:page]).per(5)
-  #   end
-  #   render "admin/book_stores/index"
-  # end
+  def search
+    @word = params[:is_active]
+    if @word.present?
+      @book_stores = BookStore.where(is_active: @word).page(params[:page]).per(5)
+    else
+      @book_stores = BookStore.all.page(params[:page]).per(5)
+    end
+    render "admin/book_stores/index"
+  end
 
-   private
+  private
 
   def book_store_params
     params.require(:book_store).permit(:name, :image, :body)
   end
-  
+
   private
 
   def book_store_params
