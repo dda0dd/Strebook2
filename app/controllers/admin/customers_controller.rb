@@ -39,15 +39,15 @@ class Admin::CustomersController < ApplicationController
     redirect_to admin_customers_path
   end
 
-  # def search
-  #   @word = params[:is_active]
-  #   if @word.present?
-  #     @customers = Customer.where(is_active: @word).page(params[:page]).per(5)
-  #   else
-  #     @customers = Customer.all.page(params[:page]).per(5)
-  #   end
-  #   render "admin/customers/index"
-  # end
+  def search
+    @word = params[:is_active]
+    if @word.present?
+      @customers = Customer.where(is_active: @word).page(params[:page]).per(5)
+    else
+      @customers = Customer.all.page(params[:page]).per(5)
+    end
+    render "admin/customers/index"
+  end
 
   private
 
