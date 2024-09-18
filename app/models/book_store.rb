@@ -44,5 +44,13 @@ class BookStore < ApplicationRecord
     end
   end
 
+  def active?
+    is_active
+  end
+
+  def withdrawn?
+    !is_active
+  end
+
   has_one_attached :image
 end

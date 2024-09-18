@@ -25,4 +25,12 @@ class Customer < ApplicationRecord
   def guest?
     name == "guestcustomer"
   end
+
+  def active?
+    is_active
+  end
+
+  def withdrawn?
+    !is_active
+  end
 end
